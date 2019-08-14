@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="/css/master.css">
+        <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css" integrity="sha384-wxqG4glGB3nlqX0bi23nmgwCSjWIW13BdLUEYC4VIMehfbcro/ATkyDsF/AbIOVe" crossorigin="anonymous">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+          <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+              <a class="navbar-brand" href="/">AlleCino</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('films') }}">Films à l'affiche</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('mybookmarks') }}">Mes Favoris</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('login') }}">Se connecter</a>
+                  </li>
+                  {% if app.user %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
+                  </li>
+                  {% endif %}
+                  {% if is_granted('ROLE_ADMIN') %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin_user') }}">Voir les utilisateurs</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin_film') }}">Voir les films</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('adminRank_film') }}">Top 10 des films</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+          </nav>
+          <div class="container mt-4">
+            {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

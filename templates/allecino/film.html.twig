@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les films à l'affiche{% endblock %}
+
+{% block body %}
+
+    <section class="films">
+
+      {% for film in films %}
+        <div>
+          <h2>{{ film.name }}</h2>
+          <img src="{{ film.image }}" alt="">
+          <div class="description">
+            <p>{{ film.description | raw }}</p>
+            <a href="{{ path ('film_show', {id: film.id}) }}" class="btn btn-primary">Lire la suite</a>
+          </div>
+        </div>
+
+      {% endfor %}
+
+
+    </section>
+
+{% endblock %}

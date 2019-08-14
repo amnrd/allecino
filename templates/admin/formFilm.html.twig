@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+
+  {% if editMod %}
+    <h1>Modifier le film</h1>
+    {{ form_start(formFilm) }}
+      {{ form_rest(formFilm) }}
+      <button type="submit" class="btn btn-primary">Modifier</button>
+    {{ form_end(formFilm) }}
+          {% else %}
+          <h1>Créer un film</h1>
+          {{ form_start(formFilm) }}
+
+            {{ form_rest(formFilm) }}
+
+            <button type="submit" class="btn btn-primary">Créer</button>
+          {{ form_end(formFilm) }}
+  {% endif %}
+
+
+
+
+{% endblock %}

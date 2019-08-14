@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les films à l'affiche{% endblock %}
+
+{% block body %}
+
+    <section class="films">
+
+        <div class="row">
+          <div class="col-md-8">
+            <h2>{{ film.name }}</h2>
+            <img src="{{ film.image }}" alt="">
+            <div class="description">
+              <p>{{ film.description | raw }}</p>
+            </div>
+            <a href="/films" class="btn btn-primary">Retour aux films à l'affiche</a>
+          </div>
+
+          <div class="col-m-4">
+            <div class="row">
+              <div class="col-md-6">
+                <a href="{{ path('vote', {'id': film.id}) }}" class="btn btn-link">
+                  {% if app.user and film.isLikedByUser(app.user) %}
+                    <i class="fas fa-thumbs-up"></i>
+                  {% else %}
+                    <i class="far fa-thumbs-up"></i>
+                  {% endif %}
+                </a>
+                  <span class="likes">{{ film.getPositiveVotes() | length }}</span>
+              </div>
+              <div class="col-md-6">
+                <a href="{{ path('unvote', {'id': film.id}) }}" class="btn btn-link">
+                  {% if app.user and film.isDislikedByUser(app.user) %}
+                    <i class="fas fa-thumbs-down"></i>
+                  {% else %}
+                    <i class="far fa-thumbs-down"></i>
+                  {% endif %}
+                </a>
+                  <span class="likes">{{ film.getNegativeVotes() | length }}</span>
+              </div>
+            </div>
+            <div>
+              {% if app.user and film.isFavoriteByUser(app.user) %}
+                <a href="{{ path ('bookmark', {'id': film.id}) }}" class="btn btn-danger">Retirer des favoris</a>
+              {% else %}
+                <a href="{{ path ('bookmark', {'id': film.id}) }}" class="btn btn-primary">Mettre en favoris</a>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+
+    </section>
+
+    <section class="commentaires">
+      <h1> {{ film.comments | length }} Commentaires : </h1>
+      {% for comment in film.comments %}
+        <div class="comment">
+
+          <div class="row">
+
+            <div class="col-3">
+              <h1>{{comment.author}}</h1>
+              (<small>
+                {{comment.createdAt | date ('d/m/Y à H:i')}}
+              </small>)
+            </div>
+
+            <div class="col-9">
+              {{comment.content | raw}}
+            </div>
+
+          </div>
+
+        </div>
+      {% endfor %}
+
+      {{form_start(commentForm)}}
+      {{form_row(commentForm.author, {'attr': {'placeholder': 'Votre nom'}})}}
+      {{form_row(commentForm.content, {'attr': {'placeholder': 'Votre commentaire'}})}}
+      <button type="submit" class="btn btn-success"> Envoyer </button>
+      {{form_end(commentForm)}}
+    </section>
+
+{% endblock %}

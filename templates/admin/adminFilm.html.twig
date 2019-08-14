@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+
+
+    <h1>Gérer les films</h1>
+
+    <div class="row">
+      <div class="col-md-8">
+        <table id="film" class="table table-stripped">
+          <thead>
+            <tr>
+              <th>Nom du film</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for film in films %}
+              <tr>
+                <td>
+                  {{ film.name }}
+                </td>
+                <td>
+                  <a href="{{ path ('adminEdit_film', {id: film.id}) }}" class="btn btn-primary">Modifier</a>
+                  <a href="{{ path ('adminDelete_film', {id:film.id}) }}" class="btn btn-danger delete-film" data-id="{{film.id}}">Supprimer</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-4">
+        <h1>Ajouter un film</h1>
+        <a href="{{ path ('adminCreate_film') }}" class="btn btn-primary">Créer un film</a>
+      </div>
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+<script src="/js/main.js" type="text/javascript">
+
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+
+      {% if editMod %}
+        <h1>Modifier l'utilisateur</h1>
+        {{form_start(formUser)}}
+        {{form_rest(formUser)}}
+        <button class="btn btn-lg btn-primary" type="submit">
+            Modifier
+        </button>
+        {{form_end(formUser)}}
+      {% else %}
+              <h1>Créer un utilisateur</h1>
+              {{form_start(formUser)}}
+              {{form_rest(formUser)}}
+              <button class="btn btn-lg btn-primary" type="submit">
+                  Créer
+              </button>
+              {{form_end(formUser)}}
+      {% endif %}
+
+
+
+
+{% endblock %}

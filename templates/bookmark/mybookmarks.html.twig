@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos films favoris{% endblock %}
+
+{% block body %}
+
+<section class="bookmarks">
+  <h1>Vos films favoris</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-stripped">
+        <thead>
+          <tr>
+            <th>Nom du film</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bookmark in bookmarks %}
+            <tr>
+              <td>
+                {{ bookmark.films.name }}
+              </td>
+              <td>
+                <a href="{{ path ('bookmark', {'id': bookmark.films.id}) }}" class="btn btn-danger delete-film" data-id="{{bookmark.films.id}}">Retirer des favoris</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</section>
+{% endblock %}

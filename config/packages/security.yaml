@@ -1,0 +1,38 @@
+security:
+    encoders:
+        App\Entity\Admin:
+            algorithm: auto
+        App\Entity\User:
+            algorithm: auto
+
+    role_hierarchy:
+        ROLE_USER:        [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_ADMIN]
+        ROLE_SUPERADMIN:  [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+
+        app_user_provider:
+              entity:
+                  class: App\Entity\User
+                  property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            anonymous: true
+            form_login:
+              login_path: login
+              check_path: login_check
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: logout
+
+    access_control:
+         #- { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/member, roles: ROLE_USER }
